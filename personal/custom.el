@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (geiser company-anaconda json-mode js2-mode rainbow-mode elisp-slime-nav company helm-ag helm-descbinds smex ido-completing-read+ flx-ido helm-projectile helm rainbow-delimiters anaconda-mode dired+ direx elscreen zop-to-char zenburn-theme which-key volatile-highlights undo-tree smartrep smartparens smart-mode-line operate-on-number move-text magit projectile ov imenu-anywhere guru-mode grizzl god-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major dash crux browse-kill-ring beacon anzu ace-window))))
+    (dired-single smooth-scrolling geiser company-anaconda json-mode js2-mode rainbow-mode elisp-slime-nav company helm-ag helm-descbinds smex ido-completing-read+ flx-ido helm-projectile helm rainbow-delimiters anaconda-mode dired+ direx elscreen zop-to-char zenburn-theme which-key volatile-highlights undo-tree smartrep smartparens smart-mode-line operate-on-number move-text magit projectile ov imenu-anywhere guru-mode grizzl god-mode gitignore-mode gitconfig-mode git-timemachine gist flycheck expand-region epl editorconfig easy-kill diminish diff-hl discover-my-major dash crux browse-kill-ring beacon anzu ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -69,7 +69,7 @@
 (unless (packages-installed-p)
   ;; Check for new packages (package versions)
   (message "%s" "Emacs is now refreshing its package database...")
-  (package-refresh-lcontents)
+  (package-refresh-contents)
   (message "%s" " done.")
   ;; Install the missing packages
   (dolist (p required-packages)
