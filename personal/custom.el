@@ -77,10 +77,21 @@
       (package-install p))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Propmt y or n instead of yes or no
+(defalias 'yes-or-no-p 'y-or-n-p)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Open Emacs in Full screen mode always
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Customizing the cursor
+(setq-default cursor-type 'bar)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Set line numbers
 (global-linum-mode 1)
-(setq linum-format "  %d ")
+(setq linum-format "   %d ")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Function and shortcut (C-d) to duplicate the current line
@@ -199,11 +210,29 @@
 		(lambda () (interactive) (join-line -1)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Dired settings
+
+(require 'dired )
+
 ;; Dired show file name in human readable format
 (setq dired-listing-switches "-alhk")
 
 ;; Setting up shortcut key for direx
 (global-set-key (kbd "C-x C-d") 'direx-project:jump-to-project-root)
+
+(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file) ; was dired-advertised-find-file
+
+(define-key dired-mode-map (kbd "^") (lambda () (interactive) (find-alternate-file "..")))  ; was dired-up-directory
+;; Dired reuse same buffer
+(put 'dired-find-alternate-file 'disabled nil)
+
+;; Dired reuse same bufer while going to parent directory
+(add-hook 'dired-mode-hook
+          (lambda ()
+            (define-key dired-mode-map (kbd "^")
+              (lambda () (interactive) (find-alternate-file "..")))
+                                        ; was dired-up-directory
+            ))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Helm Config
