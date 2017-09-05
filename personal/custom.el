@@ -18,21 +18,21 @@
   '(
     ;;    solarized-theme
     ;;    sr-speedbar
-       elscreen
-       expand-region
+    elscreen
+    expand-region
     ;;    hideshowvis
     ;;    gh-md  ; Markdown viewer from github realtime
     ;;    markdown-mode
     ;;    diff-hl
     ;;    magit
-       smooth-scrolling
+    smooth-scrolling
     ;;    cmake-mode
     ;;    flycheck
     ;;    projectile
     ;;    helm-projectile
-       direx
-       dired+
-       dired-single
+    direx
+    dired+
+    dired-single
     ;;    ggtags
     ;;    yasnippet
     ;;    solarized-theme
@@ -52,7 +52,7 @@
     ;;    ipython
     ;;    transpose-frame
     ;;    python-mode
-       expand-region
+    expand-region
     ;;    projectile
     ;;    move-text
     ;;    neotree
@@ -233,6 +233,19 @@
               (lambda () (interactive) (find-alternate-file "..")))
                                         ; was dired-up-directory
             ))
+
+;; Switch to dired buffer
+(defun switch-to-dired-buffer ()
+  "..."
+  (interactive)
+  (let ((dbufs  (cl-remove-if-not
+                 (lambda (bf)
+                   (with-current-buffer bf
+                     (derived-mode-p 'dired-mode)))
+                 (buffer-list))))
+    (switch-to-buffer (car dbufs))))
+(global-set-key (kbd "C-x M-d") 'switch-to-dired-buffer)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Helm Config
@@ -249,7 +262,6 @@
 ;; Set selection background to white color
 (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;; Prevent Creation of Backup files
 (setq make-backup-files nil)
